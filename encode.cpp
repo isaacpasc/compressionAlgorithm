@@ -140,10 +140,58 @@ int main(int argc, char** argv) {
 
 void mergeSort(tree* arr, int l, int r) {
 
+    if (l < r) {
+        int m = l + (r - l) / 2;
+        mergeSort(arr, l, m);
+        mergeSort(arr, m + 1, r);
+        merge(arr, l, m, r);
+    }
 }
 
 void merge(tree* arr, int l, int m, int r) {
 
+    // create temp arrays, left and right
+    int i, j, k;
+    int lTmp = m - l + 1;
+    int rTmp = r - m;
+    struct tree L[lTmp], R[rTmp];
+
+    // copy data to temp arrays
+    for (i = 0; i < lTmp; i++)
+        L[i] = arr[l + i];
+    for (j = 0; j < rTmp; j++)
+        R[j] = arr[m + 1 + j];
+
+    //merge temp to original array by frequency then index
+    i = 0; // Initial index of first subarray
+    j = 0; // Initial index of second subarray
+    k = l; // Initial index of merged subarray
+    while (i < lTmp && j < rTmp) {
+        if (L[i].freq < R[j].freq) {
+            arr[k] = L[i];
+            i++;
+        } else if (L[i].freq > R[j].freq) {
+            arr[k] = R[j];
+            j++;
+        } else if (L[i].freq == R[j].freq && L[i].index > R[j].index) {
+            arr[k] = R[j];
+            j++;
+        } else if (L[i].freq == R[j].freq && L[i].index < R[j].index) {
+            arr[k] = L[i];
+            i++;
+        }
+        k++;
+    }
+    while (i < lTmp) {
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
+    while (j < rTmp) {
+        arr[k] = R[j];
+        j++;
+        k++;
+    }
 }
 
 void insertion(tree* arr, int n) {
