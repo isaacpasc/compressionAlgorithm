@@ -104,6 +104,7 @@ int main(int argc, char** argv) {
             }
             skipToLine--;
         }
+        std::cout << '\n';
     } else {
         std::cout << "Input File Unavailable: " << argv[1] << "\nEnding program..." << std::endl;
         return -1;
@@ -219,7 +220,7 @@ void buildTree(tree* arr, int n) {
 }
 
 void decode(struct symbol* node,struct symbol* root , std::string str, int* index) {
-    if (*index == str.length()) {
+    if (*index >= str.length()) {
         return;
     }
     if (str[*index] == '0') {
