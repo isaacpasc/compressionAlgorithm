@@ -104,6 +104,7 @@ int main(int argc, char** argv) {
             }
             skipToLine--;
         }
+        std::cout << '\n';
     } else {
         std::cout << "Input File Unavailable: " << argv[1] << "\nEnding program..." << std::endl;
         return -1;
